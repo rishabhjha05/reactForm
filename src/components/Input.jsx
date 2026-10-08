@@ -1,14 +1,9 @@
-const Input = ({id,value,onChange,errors}) => {
+const Input = ({ id, value, onChange, errors, label }) => {
   return (
     <div className="input-container">
-      <label htmlFor={id}>Title</label>
-      <input
-        id={id}
-        name={id}
-        value={value}
-        onChange={onChange}
-      />
-      <p className="fieldError">{errors?.title}</p>
+      <label htmlFor={id}>{label}</label>
+      <input id={id} name={id} value={value} onChange={onChange} />
+      <p className="fieldError">{errors[id]}</p>
     </div>
   );
 };

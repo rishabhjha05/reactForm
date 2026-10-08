@@ -6,7 +6,7 @@ const Form = ({ setData }) => {
   // const [title, setTitle] = useState('');
   // const [category, setCategory] = useState('');
   // const [amount, setAmount] = useState('');
-
+  const options = ['Grocery', 'Clothes', 'Bills', 'Education', 'Medicine'];
   const [expense, setExpense] = useState({
     title: '',
     category: '',
@@ -38,7 +38,7 @@ const Form = ({ setData }) => {
       amount: expense.amount,
       id: crypto.randomUUID(),
     };
-    const err=validate(entry)
+    const err = validate(entry);
     if (Object.keys(err).length) return;
     setData((prevData) => [...prevData, { ...entry }]);
     setExpense({ title: '', category: '', amount: '' });
@@ -46,23 +46,34 @@ const Form = ({ setData }) => {
   function handleChange(e) {
     const { name, value } = e.target;
     delete errors[name];
-    setErrors({...errors});
+    setErrors({ ...errors });
     setExpense((prev) => ({ ...prev, [name]: value }));
   }
   return (
     <form className="expense-form" onSubmit={submitHandler}>
-      <Input id="title" value={expense.title} onChange={handleChange} errors={errors}/>
-      <Select id="category" value={expense.category} onChange={handleChange} errors={errors}/>
-      <div className="input-container">
-        <label htmlFor="amount">Amount</label>
-        <input
-          id="amount"
-          name="amount"
-          value={expense.amount}
-          onChange={handleChange}
-        />
-        <p className="fieldError">{errors?.amount}</p>
-      </div>
+      <Input
+        id="title"
+        value={expense.title}
+        onChange={handleChange}
+        errors={errors}
+        label="Title"
+      />
+      <Select
+        id="category"
+        value={expense.category}
+        onChange={handleChange}
+        errors={errors}
+        options={options}
+        label="Category"
+      />
+      <Input
+        id="amount"
+        value={expense.amount}
+        onChange={handleChange}
+        errors={errors}
+        label="Amount"
+      />
+
       <button className="add-btn">Add</button>
     </form>
   );
